@@ -1,4 +1,4 @@
-# Dockerize VueJS Project
+# Dockerize React Project
 
 This projet should help get you started dockeriz your Vue.js app.
 
