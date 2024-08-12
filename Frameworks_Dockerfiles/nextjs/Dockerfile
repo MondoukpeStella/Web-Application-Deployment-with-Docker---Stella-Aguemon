@@ -1,5 +1,5 @@
-# Base image
-FROM node:lts-alpine AS build-production
+# build stage
+FROM node:18-alpine AS build-production
 
 WORKDIR /app
 
@@ -13,4 +13,4 @@ RUN npm run build
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start:prod"]
+CMD ["npm", "run", "start"]
