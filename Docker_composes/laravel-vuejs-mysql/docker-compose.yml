@@ -1,0 +1,43 @@
+services:
+  db:
+    build: ./mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456789
+      MYSQL_DATABASE: dockerdb
+      MYSQL_USER: sam
+      MYSQL_PASSWORD: 123456789
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3308:3306"
+    networks:
+      - app
+
+  backend:
+    build: ./laravel
+    depends_on:
+      - db
+    volumes:
+      - ./laravel:/var/www/html
+      - ./.env:/var/www/.env
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_ENV=local
+    networks:
+      - app
+
+  frontend:
+    build: ./vuejs
+    ports:
+      - "81:80"
+    networks:
+      - app
+
+volumes:
+  db_data: 
+    driver: local
+
+networks:
+  app:
